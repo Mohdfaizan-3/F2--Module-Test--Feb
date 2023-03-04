@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Template</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- Old Favicon - Grab Icon From Google (Might be unsupported in the future) -->
+    <!-- <link rel="icon" type="image/png" href="https://s2.googleusercontent.com/s2/favicons?domain=jacinto.design"> -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- modal -->
+      <div class="modals" id="modal">
+        <div class="modal-header">
+          <h2>Create a Post</h2>
+          <div class="close-btn" data-close-button>
+            &times;
+          </div>
+        </div>
+
+        <div class="modal-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At, quo corrupti, animi soluta debitis tempore cupiditate exercitationem id eligendi labore sapiente consequuntur hic commodi consequatur numquam quisquam maiores maxime vitae.</div>
+      </div>
+
+      <!-- overlay -->
+      <div class="overlay"></div>
+
+      <!-- content -->
+      <div class="header">
+        <h1>Blogging Website</h1>
+        <button data-modal-target="#modal">
+          Create new Blog Post
+        </button>
+      </div>
+      <div class="blog-list"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+*, *::before, *::after{box-sizing: inherit;}
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.modals {
+  position:fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  z-index: 10;
+  max-width: 80%;
+  width: 500px;
+  background-color: white;
+  transform: 200ms ease-in-out;
+}
+
+.modals.active {
+  transform: translate(-50%,-50%) scale(1);
+}
+
+.overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: grey;
+  pointer-events: none;
+  transition:200ms ease-in-out;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
