@@ -1,4 +1,8 @@
-*, *::before, *::after{box-sizing: inherit;}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 html {
   box-sizing: border-box;
 }
@@ -9,19 +13,22 @@ body {
 }
 
 .modals {
-  position:fixed;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
   z-index: 10;
   max-width: 80%;
-  width: 500px;
+  width: 80%;
+  padding: 2em;
   background-color: white;
   transform: 200ms ease-in-out;
 }
 
 .modals.active {
-  transform: translate(-50%,-50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .overlay {
@@ -33,10 +40,47 @@ body {
   right: 0;
   background-color: grey;
   pointer-events: none;
-  transition:200ms ease-in-out;
+  transition: 200ms ease-in-out;
 }
 
 .overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+}
+
+.close-btn {
+  font-size: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  margin-bottom: 1em;
+  height: 3em;
+  font-size: 1em;
+}
+
+form textarea {
+  resize: none;
+  max-width: 100%;
+}
+
+form .modal-form-btn {
+  padding-top: 1.5em;
+}
+
+form .modal-form-btn button {
+  padding: 1em 5em;
+  margin-right: 2em;
+  font-size: 0.8rem;
 }
