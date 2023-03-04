@@ -32,21 +32,22 @@
         </div>
 
         <div class="modal-body">
-          <form action="/" method="GET">
+          <form id="form" action="/" method="GET">
             <input
+            id="heading"
               type="text"
               placeholder="enter your heading"
             />
             <textarea
-              name="blog-text"
+              name="blog"
               id="blog-text"
               cols="30"
               rows="10"
               placeholder="enter your blog post..."
             ></textarea>
             <div class="modal-form-btn">
-              <button>publish post</button>
-              <button>cancel post</button>
+              <button type="submit" class="publish-post">publish post</button>
+              <button class="cancel-post">cancel post</button>
             </div>
           </form>
         </div>

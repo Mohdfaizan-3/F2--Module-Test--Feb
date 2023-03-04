@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
 }
 
+/* modal */
 .modals {
   display: flex;
   flex-direction: column;
@@ -83,4 +84,29 @@ form .modal-form-btn button {
   padding: 1em 5em;
   margin-right: 2em;
   font-size: 0.8rem;
+}
+
+/* header */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #111111;
+  color: white;
+  padding: 0.7em;
+}
+
+.header h1,
+button {
+  font-size: 0.9rem;
+  color: white;
+  background-color: #111111;
+}
+
+.header button {
+  padding: 1em;
+  cursor: pointer;
+  border: none;
+  outline: none;
 }
