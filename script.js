@@ -12,13 +12,17 @@ const cancelPostButton =
   document.querySelector(".cancel-post");
 
 const blogList = document.querySelector(".blog-list");
-const arr = [];
+let arr = [];
 //constructor
 function Constructor(id, heading, blog) {
   this.id = id;
   this.heading = heading;
   this.blog = blog;
 }
+
+cancelPostButton.addEventListener("click", () => {
+  closeModal(modal);
+});
 
 // functions
 function openModal(modal) {
@@ -33,51 +37,137 @@ function closeModal(modal) {
   overlay.classList.remove("active");
 }
 
-function publisPost(e) {
+// function publisPost(e, id) {
+//   e.preventDefault();
+//   const form = document.querySelector("#form");
+//   let heading = form.heading.value;
+//   let blog = form.blog.value;
+
+//   let obj = arr.find((post) => post.id === id);
+
+//   if (obj) {
+//     obj.heading = heading;
+//     obj.blog = blog;
+//   } else {
+//     obj = new Constructor(
+//       (id = arr.length+1),
+//       heading,
+//       blog
+//     );
+//     arr.push(obj);
+//   }
+
+//   display(arr);
+// }
+
+function publisPost(e, id) {
   e.preventDefault();
   const form = document.querySelector("#form");
   let heading = form.heading.value;
   let blog = form.blog.value;
 
-  let obj = new Constructor(
-    (id = arr.length),
-    heading,
-    blog
-  );
-  arr.push(obj);
-  // console.log(arr)
-  display(obj);
+  let obj = arr.find((post) => post.id === id);
+  //console.log(obj);
+
+  if (obj !== undefined) {
+    //    form.heading.value = obj.heading;
+    //  form.blog.value= obj.blog;
+
+    obj.heading = form.heading.value;
+    obj.blog = form.blog.value;
+
+    arr = [...arr.slice(0, id - 1), obj, ...arr.slice(id)];
+  } else {
+    let obj = new Constructor(
+      (id = arr.length + 1),
+      heading,
+      blog
+    );
+    arr.push(obj);
+  }
+  console.log(arr);
+  display(arr);
+  closeModal(modal);
+  //closeModal(document.querySelector('.modals.active'));
 }
 
-function display(obj) {
-  const h3 = document.createElement("h3");
-  h3.textContent = obj.heading;
-  const h3div = document.createElement("div");
-  h3div.appendChild(h3);
+function display(arr) {
+  blogList.innerHTML = "";
+  arr.forEach((obj) => {
+    const h3 = document.createElement("h3");
+    h3.textContent = obj.heading;
+    const h3div = document.createElement("div");
+    h3div.appendChild(h3);
 
-  const p = document.createElement("p");
-  p.textContent = obj.blog;
-  const pdiv = document.createElement("div");
-  pdiv.appendChild(p);
+    const p = document.createElement("p");
+    p.textContent = obj.blog;
+    const pdiv = document.createElement("div");
+    pdiv.appendChild(p);
 
+    const editPostButtton =
+      document.createElement("button");
+    editPostButtton.textContent = "edit post";
+    editPostButtton.id = obj.id;
+    editPostButtton.addEventListener("click", handleEdit);
 
-  const editPostButtton = document.createElement('button');
-  editPostButtton.textContent = 'edit post'
+    const deletePostButton =
+      document.createElement("button");
+    deletePostButton.textContent = "delete post";
+    deletePostButton.id = obj.id;
+    deletePostButton.addEventListener(
+      "click",
+      handleDelete
+    );
 
-  const deletePostButton = document.createElement("button");
-  deletePostButton.textContent = "delete post";
-
-
-  
-  const div = document.createElement("div");
-  div.append(
-    h3div,
-    pdiv,
-    editPostButtton,
-    deletePostButton
-  );
-  blogList.append(div);
+    const div = document.createElement("div");
+    div.append(
+      h3div,
+      pdiv,
+      editPostButtton,
+      deletePostButton
+    );
+    blogList.append(div);
+  });
 }
+
+function handleDelete(event) {
+  const index = arr.findIndex((item) => {
+    return item.id === Number(event.target.id);
+  });
+
+  arr = [...arr.slice(0, index), ...arr.slice(index + 1)];
+
+  // update ids
+  arr.forEach((post, index) => {
+    post.id = index + 1;
+  });
+  display(arr);
+}
+
+function handleEdit(event) {
+  const obj = arr[event.target.id - 1];
+  const form = document.querySelector("#form");
+  form.heading.value = obj.heading;
+  form.blog.value = obj.blog;
+  // obj.heading = form.heading.value;
+  // obj.blog = form.blog.value;
+  openModal(modal);
+  publishPostButton.removeEventListener(
+    "click",
+    publisPost
+  );
+  publishPostButton.addEventListener("click", (e) => {
+    // e.stopPropagation();
+    publisPost(e, obj.id);
+  });
+}
+form.heading.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+
+form.blog.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
 
 // eventlisteners
 overlay.addEventListener("click", () => {
@@ -105,4 +195,7 @@ closeModalButton.forEach((button) => {
   });
 });
 
-publishPostButton.addEventListener("submit", publisPost);
+publishPostButton.addEventListener("submit", (e) => {
+  publisPost(e, null);
+  // e.stopPropagation();
+});
